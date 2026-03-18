@@ -1,3 +1,4 @@
+HEAD
 # AI-Based Social Media Report Generator for Sri Lankan Businesses
 ## Final Year Project - BSc Software Engineering, Kingston University London
 ### Student: Kushani Maleesha Wickramarathna | K2557717
@@ -81,3 +82,7 @@ Open browser: `http://localhost:5000`
 
 ## API Key
 - Google Gemini API: Get free at https://aistudio.google.com/app/apikey
+=======
+# Social-Media-Analyzer
+AI-powered web app that generates personalized social media strategy reports for Sri Lankan businesses using Flask, MongoDB, and Google Gemini.
+>>>>>>> f148f6545c01bddbe3c289b641ba1d7980871037
