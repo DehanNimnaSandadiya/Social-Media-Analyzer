@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — SM Report Generator</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+<div class="auth-page">
+
+  <!-- Left panel -->
+  <div class="auth-left">
+    <div class="auth-left-content">
+      <div class="auth-logo">
+        <div class="auth-logo-icon">📊</div>
+        <span class="auth-logo-text">SM Report Generator</span>
+      </div>
+      <h2 class="auth-tagline">Welcome back to your social media command centre</h2>
+      <p class="auth-sub">Generate AI-powered social media strategy reports tailored for Sri Lankan businesses — in minutes.</p>
+      <ul class="auth-features">
+        <li><span class="check">✓</span> AI-generated audience insights</li>
+        <li><span class="check">✓</span> Platform-specific recommendations</li>
+        <li><span class="check">✓</span> Downloadable PDF reports</li>
+        <li><span class="check">✓</span> 6-month growth forecasts</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Right panel -->
+  <div class="auth-right">
+    <div class="auth-box">
+      <h1>Sign in</h1>
+      <p class="auth-desc">Enter your credentials to access your dashboard</p>
+
+      <div id="loginAlert" class="alert alert-error hidden"></div>
+
+      <div class="form-group">
+        <label class="form-label">Email address</label>
+        <input type="email" id="loginEmail" class="form-control" placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" id="loginPassword" class="form-control" placeholder="••••••••">
+      </div>
+
+      <button class="btn btn-primary btn-lg" style="width:100%" id="loginBtn" onclick="handleLogin()">
+        Sign in
+      </button>
+
+      <div class="auth-switch">
+        Don't have an account? <a href="register.html">Create one free</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  // Redirect if already logged in
+  if (localStorage.getItem('token')) window.location.href = 'dashboard.html';
+
+  async function handleLogin() {
+    const btn   = document.getElementById('loginBtn');
+    const alert = document.getElementById('loginAlert');
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass  = document.getElementById('loginPassword').value;
+
+    if (!email || !pass) {
+      showAlert(alert, 'Please fill in all fields.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Signing in…';
+
+    try {
+      const data = await API.post('/api/auth/login', { email, password: pass });
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      window.location.href = 'dashboard.html';
+    } catch (e) {
+      showAlert(alert, e.message || 'Invalid email or password.');
+      btn.disabled = false;
+      btn.innerHTML = 'Sign in';
+    }
+  }
+
+  function showAlert(el, msg) {
+    el.textContent = msg;
+    el.classList.remove('hidden');
+  }
+
+  // Enter key support
+  document.addEventListener('keydown', e => { if (e.key === 'Enter') handleLogin(); });
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register — SM Report Generator</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+<div class="auth-page">
+
+  <!-- Left panel -->
+  <div class="auth-left">
+    <div class="auth-left-content">
+      <div class="auth-logo">
+        <div class="auth-logo-icon">📊</div>
+        <span class="auth-logo-text">SM Report Generator</span>
+      </div>
+      <h2 class="auth-tagline">Start growing your business online — for free</h2>
+      <p class="auth-sub">Join Sri Lankan businesses already using AI-powered insights to improve their social media strategy.</p>
+      <ul class="auth-features">
+        <li><span class="check">✓</span> Free to use — no credit card needed</li>
+        <li><span class="check">✓</span> Instant AI-generated reports</li>
+        <li><span class="check">✓</span> Tailored for the Sri Lankan market</li>
+        <li><span class="check">✓</span> Save and revisit all your reports</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Right panel -->
+  <div class="auth-right">
+    <div class="auth-box">
+      <h1>Create account</h1>
+      <p class="auth-desc">Get your first AI social media report in under 2 minutes</p>
+
+      <div id="regAlert" class="alert alert-error hidden"></div>
+      <div id="regSuccess" class="alert alert-success hidden"></div>
+
+      <div class="form-group">
+        <label class="form-label">Full name</label>
+        <input type="text" id="regName" class="form-control" placeholder="Kushani Wickramarathna">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email address</label>
+        <input type="email" id="regEmail" class="form-control" placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password <span style="color:#9ca3af;font-weight:400">(min 6 characters)</span></label>
+        <input type="password" id="regPassword" class="form-control" placeholder="••••••••">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirm password</label>
+        <input type="password" id="regConfirm" class="form-control" placeholder="••••••••">
+      </div>
+
+      <button class="btn btn-primary btn-lg" style="width:100%" id="regBtn" onclick="handleRegister()">
+        Create free account
+      </button>
+
+      <div class="auth-switch">
+        Already have an account? <a href="login.html">Sign in</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/api.js"></script>
+<script>
+  if (localStorage.getItem('token')) window.location.href = 'dashboard.html';
+
+  async function handleRegister() {
+    const btn      = document.getElementById('regBtn');
+    const errAlert = document.getElementById('regAlert');
+    const okAlert  = document.getElementById('regSuccess');
+    errAlert.classList.add('hidden');
+    okAlert.classList.add('hidden');
+
+    const name  = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const pass  = document.getElementById('regPassword').value;
+    const conf  = document.getElementById('regConfirm').value;
+
+    if (!name || !email || !pass || !conf) {
+      showErr('Please fill in all fields.'); return;
+    }
+    if (pass !== conf) {
+      showErr('Passwords do not match.'); return;
+    }
+    if (pass.length < 6) {
+      showErr('Password must be at least 6 characters.'); return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Creating account…';
+
+    try {
+      const data = await API.post('/api/auth/register', { full_name: name, email, password: pass });
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      okAlert.textContent = 'Account created! Redirecting…';
+      okAlert.classList.remove('hidden');
+      setTimeout(() => window.location.href = 'dashboard.html', 800);
+    } catch (e) {
+      showErr(e.message || 'Registration failed. Please try again.');
+      btn.disabled = false;
+      btn.innerHTML = 'Create free account';
+    }
+  }
+
+  function showErr(msg) {
+    const el = document.getElementById('regAlert');
+    el.textContent = msg;
+    el.classList.remove('hidden');
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Enter') handleRegister(); });
+</script>
+</body>
+</html>

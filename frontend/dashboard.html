@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — SM Report Generator</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <a href="dashboard.html" class="navbar-brand">
+    <div class="logo-icon">📊</div>
+    SM Report Generator
+  </a>
+  <ul class="navbar-nav">
+    <li><span id="navUserName" style="font-size:14px;color:#374151;font-weight:500;"></span></li>
+    <li><button class="btn btn-ghost btn-sm" onclick="logout()">Sign out</button></li>
+  </ul>
+</nav>
+
+<!-- Layout -->
+<div class="dash-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Menu</div>
+      <a href="dashboard.html" class="sidebar-link active">
+        <span class="icon">🏠</span> Dashboard
+      </a>
+      <a href="input.html" class="sidebar-link">
+        <span class="icon">➕</span> New Report
+      </a>
+    </div>
+    <div class="sidebar-section" style="margin-top:16px;">
+      <div class="sidebar-label">Account</div>
+      <a href="#" class="sidebar-link" onclick="logout()">
+        <span class="icon">🚪</span> Sign out
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="dash-main">
+
+    <!-- Welcome banner -->
+    <div class="welcome-banner">
+      <h2 id="welcomeMsg">Welcome back! 👋</h2>
+      <p>Generate AI-powered social media reports for your Sri Lankan business</p>
+    </div>
+
+    <!-- Stats row -->
+    <div class="grid-4" style="margin-bottom:28px;" id="statsRow">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#eff6ff;">📋</div>
+        <div class="stat-value" id="statReports">0</div>
+        <div class="stat-label">Total Reports</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#f0fdf4;">🏢</div>
+        <div class="stat-value" id="statBusinesses">0</div>
+        <div class="stat-label">Businesses Added</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#fef3c7;">🤖</div>
+        <div class="stat-value">AI</div>
+        <div class="stat-label">Powered by Gemini</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#fdf4ff;">🇱🇰</div>
+        <div class="stat-value">SL</div>
+        <div class="stat-label">Sri Lanka Focused</div>
+      </div>
+    </div>
+
+    <!-- Quick action -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <h3 class="section-title">Recent Reports</h3>
+      <a href="input.html" class="btn btn-primary btn-sm">➕ New Report</a>
+    </div>
+
+    <!-- Reports list -->
+    <div id="reportsList">
+      <div style="text-align:center;padding:40px;">
+        <div class="spinner spinner-dark" style="margin:0 auto;"></div>
+        <p style="margin-top:12px;color:#9ca3af;font-size:14px;">Loading reports…</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div id="toast"></div>
+
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

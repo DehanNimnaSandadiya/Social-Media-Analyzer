@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SM Report Generator — AI-Based Social Media Analytics for Sri Lankan Businesses</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    /* ── Landing page specific ── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1a56db 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .lp-nav {
+      display: flex; align-items: center;
+      padding: 20px 56px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .lp-logo {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 18px; font-weight: 800; color: #fff; text-decoration: none;
+    }
+    .lp-logo-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #1a56db, #0ea5e9);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .lp-nav-links {
+      margin-left: auto;
+      display: flex; gap: 12px; align-items: center;
+    }
+    .lp-nav-links a { color: rgba(255,255,255,.8); text-decoration: none; font-size: 14px; font-weight: 500; }
+    .lp-nav-links a:hover { color: #fff; }
+
+    .hero-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      color: #fff;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+    .hero-badge span { color: #60a5fa; }
+    .hero-title {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.15;
+      max-width: 760px;
+      margin-bottom: 20px;
+      font-family: 'DM Serif Display', serif;
+    }
+    .hero-title .highlight {
+      background: linear-gradient(90deg, #60a5fa, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 18px;
+      opacity: .75;
+      max-width: 560px;
+      line-height: 1.65;
+      margin-bottom: 36px;
+    }
+    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .hero-cta a { font-size: 15px; padding: 14px 28px; border-radius: 10px; font-weight: 700; text-decoration: none; transition: all .2s; }
+    .cta-primary { background: #fff; color: #1a56db; }
+    .cta-primary:hover { background: #eff6ff; transform: translateY(-2px); }
+    .cta-secondary { background: rgba(255,255,255,.12); color: #fff; border: 1.5px solid rgba(255,255,255,.25); }
+    .cta-secondary:hover { background: rgba(255,255,255,.2); }
+
+    /* Features */
+    .features-section {
+      background: #f8fafc;
+      padding: 80px 56px;
+    }
+    .features-section h2 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .features-section .sub {
+      text-align: center;
+      font-size: 15px;
+      color: #6b7280;
+      max-width: 520px;
+      margin: 0 auto 48px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+    .feature-icon {
+      width: 52px; height: 52px;
+      border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      margin-bottom: 16px;
+    }
+    .feature-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p  { font-size: 14px; color: #6b7280; line-height: 1.6; }
+
+    /* How it works */
+    .how-section { padding: 80px 56px; background: #fff; }
+    .how-section h2 { text-align: center; font-size: 32px; font-weight: 800; margin-bottom: 48px; }
+    .how-steps {
+      display: flex;
+      gap: 0;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .how-steps::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: 15%;
+      width: 70%;
+      height: 2px;
+      background: linear-gradient(90deg, #1a56db, #0ea5e9);
+    }
+    .how-step {
+      flex: 1;
+      text-align: center;
+      padding: 0 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .how-step-num {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a56db, #0ea5e9);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      font-weight: 800;
+      margin: 0 auto 16px;
+      box-shadow: 0 4px 16px rgba(26,86,219,.3);
+    }
+    .how-step h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .how-step p  { font-size: 13px; color: #6b7280; }
+
+    /* Footer */
+    footer {
+      background: #0f172a;
+      color: rgba(255,255,255,.6);
+      text-align: center;
+      padding: 28px;
+      font-size: 13px;
+    }
+    footer strong { color: #fff; }
+
+    @media(max-width: 768px) {
+      .lp-nav { padding: 16px 20px; }
+      .features-section, .how-section { padding: 48px 20px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .how-steps { flex-direction: column; gap: 28px; }
+      .how-steps::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <nav class="lp-nav">
+    <a href="/" class="lp-logo">
+      <div class="lp-logo-icon">📊</div>
+      SM Report Generator
+    </a>
+    <div class="lp-nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="login.html" style="margin-left:8px;">
+        <button style="padding:9px 20px;background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;">Login</button>
+      </a>
+      <a href="register.html">
+        <button style="padding:9px 20px;background:#fff;border:none;color:#1a56db;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">Get Started Free</button>
+      </a>
+    </div>
+  </nav>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span>🤖</span>
+      <span>Powered by Google Gemini AI</span>
+    </div>
+    <h1 class="hero-title">
+      AI-Powered Social Media<br>
+      <span class="highlight">Reports for Sri Lankan Businesses</span>
+    </h1>
+    <p class="hero-sub">
+      Get instant, AI-generated social media strategy reports tailored for your business.
+      No marketing expertise needed — just enter your business details and let the AI do the rest.
+    </p>
+    <div class="hero-cta">
+      <a href="register.html" class="cta-primary">🚀 Generate Your Free Report</a>
+      <a href="#how" class="cta-secondary">See How It Works</a>
+    </div>
+  </div>
+</div>
+
+<!-- Features -->
+<section class="features-section" id="features">
+  <h2>Everything your business needs</h2>
+  <p class="sub">Designed specifically for Sri Lankan small and medium businesses to thrive on social media.</p>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#eff6ff;">🎯</div>
+      <h3>Target Audience Analysis</h3>
+      <p>Identify your ideal customer demographic, their interests, and peak online hours specific to the Sri Lankan market.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#f0fdf4;">📈</div>
+      <h3>Engagement Predictions</h3>
+      <p>AI predicts your projected reach, follower growth, and engagement rates over the next 6 months.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#fef3c7;">💡</div>
+      <h3>Content Strategy</h3>
+      <p>Get platform-specific content ideas, optimal posting times, and hashtag recommendations tailored to your industry.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#fdf4ff;">📊</div>
+      <h3>Visual Reports & Charts</h3>
+      <p>Beautiful interactive charts and graphs — follower growth, engagement trends, content mix — all in one report.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#fff1f2;">📄</div>
+      <h3>Downloadable PDF</h3>
+      <p>Export your complete social media strategy report as a professional PDF to share with your team or stakeholders.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#ecfdf5;">🏆</div>
+      <h3>SWOT & Action Plan</h3>
+      <p>Understand your strengths and weaknesses, plus a prioritized action plan to improve your social media performance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="how-section" id="how">
+  <h2>Generate your report in 3 simple steps</h2>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="how-step-num">1</div>
+      <h3>Enter Business Details</h3>
+      <p>Tell us your business name, type, description, and which social platforms you use.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">2</div>
+      <h3>AI Analyses Your Business</h3>
+      <p>Our Gemini AI analyses your data against Sri Lankan market trends and audience behaviour.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">3</div>
+      <h3>Get Your Strategy Report</h3>
+      <p>Receive a complete social media strategy with charts, insights, and a downloadable PDF.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built for <strong>BSc Software Engineering Final Year Project</strong> — Kingston University London</p>
+  <p style="margin-top:6px;">Kushani Maleesha Wickramarathna | K2557717 | Supervisor: Ms. Virajini Godapitiya</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Report — SM Report Generator</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/input.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <a href="dashboard.html" class="navbar-brand">
+    <div class="logo-icon">📊</div>
+    SM Report Generator
+  </a>
+  <ul class="navbar-nav">
+    <li><a href="dashboard.html" class="btn btn-ghost btn-sm">← Dashboard</a></li>
+  </ul>
+</nav>
+
+<div class="input-page">
+  <div class="input-container">
+
+    <div class="input-header">
+      <div class="step-badge">🤖 AI Report Generator</div>
+      <h1>Tell us about your business</h1>
+      <p>Fill in the details below and our AI will generate a complete social media strategy report for you</p>
+    </div>
+
+    <!-- Step progress -->
+    <div class="step-progress">
+      <div class="step-item active" id="stepDot1">
+        <div class="step-dot">1</div>
+        <div class="step-dot-label">Business Info</div>
+      </div>
+      <div class="step-item" id="stepDot2">
+        <div class="step-dot">2</div>
+        <div class="step-dot-label">Platforms</div>
+      </div>
+      <div class="step-item" id="stepDot3">
+        <div class="step-dot">3</div>
+        <div class="step-dot-label">Details</div>
+      </div>
+    </div>
+
+    <div id="formAlert" class="alert alert-error hidden"></div>
+
+    <div class="form-card">
+
+      <!-- Step 1: Business Info -->
+      <div class="form-section active" id="step1">
+        <div class="form-section-title">
+          <div class="step-num">1</div>
+          Basic Business Information
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Business Name *</label>
+          <input type="text" id="businessName" class="form-control" placeholder="e.g. Maleesha Fashion Boutique">
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">Business Type / Industry *</label>
+            <select id="businessType" class="form-control">
+              <option value="">Select industry…</option>
+              <option>Retail & Fashion</option>
+              <option>Food & Beverage</option>
+              <option>Beauty & Wellness</option>
+              <option>Technology & IT</option>
+              <option>Education & Training</option>
+              <option>Healthcare</option>
+              <option>Travel & Tourism</option>
+              <option>Construction & Real Estate</option>
+              <option>Agriculture & Farming</option>
+              <option>Manufacturing</option>
+              <option>Financial Services</option>
+              <option>Automotive</option>
+              <option>Entertainment & Events</option>
+              <option>NGO / Non-Profit</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Target Province</label>
+            <select id="targetProvince" class="form-control">
+              <option value="">All Sri Lanka</option>
+              <option>Western Province</option>
+              <option>Central Province</option>
+              <option>Southern Province</option>
+              <option>Northern Province</option>
+              <option>Eastern Province</option>
+              <option>North Western Province</option>
+              <option>North Central Province</option>
+              <option>Uva Province</option>
+              <option>Sabaragamuwa Province</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Business Description *</label>
+          <textarea id="businessDesc" class="form-control" rows="4"
+            placeholder="Describe what your business does, what products/services you offer, and who your typical customers are. The more detail you provide, the better your AI report will be."></textarea>
+        </div>
+
+        <div class="form-nav">
+          <div></div>
+          <button class="btn btn-primary" onclick="goToStep(2)">Next: Choose Platforms →</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Platforms -->
+      <div class="form-section" id="step2">
+        <div class="form-section-title">
+          <div class="step-num">2</div>
+          Social Media Platforms
+        </div>
+        <p style="font-size:14px;color:#6b7280;margin-bottom:20px;">Select all platforms your business uses or plans to use:</p>
+
+        <div class="platform-grid">
+          <div>
+            <input type="checkbox" class="platform-option" id="plFacebook" value="Facebook">
+            <label for="plFacebook" class="platform-label">
+              <span class="platform-icon">📘</span> Facebook
+            </label>
+          </div>
+          <div>
+            <input type="checkbox" class="platform-option" id="plInstagram" value="Instagram">
+            <label for="plInstagram" class="platform-label">
+              <span class="platform-icon">📸</span> Instagram
+            </label>
+          </div>
+          <div>
+            <input type="checkbox" class="platform-option" id="plTikTok" value="TikTok">
+            <label for="plTikTok" class="platform-label">
+              <span class="platform-icon">🎵</span> TikTok
+            </label>
+          </div>
+          <div>
+            <input type="checkbox" class="platform-option" id="plYouTube" value="YouTube">
+            <label for="plYouTube" class="platform-label">
+              <span class="platform-icon">▶️</span> YouTube
+            </label>
+          </div>
+          <div>
+            <input type="checkbox" class="platform-option" id="plTwitter" value="Twitter/X">
+            <label for="plTwitter" class="platform-label">
+              <span class="platform-icon">🐦</span> Twitter / X
+            </label>
+          </div>
+          <div>
+            <input type="checkbox" class="platform-option" id="plLinkedIn" value="LinkedIn">
+            <label for="plLinkedIn" class="platform-label">
+              <span class="platform-icon">💼</span> LinkedIn
+            </label>
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn btn-ghost" onclick="goToStep(1)">← Back</button>
+          <button class="btn btn-primary" onclick="goToStep(3)">Next: More Details →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Extra details -->
+      <div class="form-section" id="step3">
+        <div class="form-section-title">
+          <div class="step-num">3</div>
+          Current Social Media Status
+        </div>
+        <p style="font-size:14px;color:#6b7280;margin-bottom:20px;">Help the AI understand your current situation for more accurate predictions:</p>
+
+        <div class="form-group">
+          <label class="form-label">Approximate Current Followers (across all platforms)</label>
+          <input type="number" id="currentFollowers" class="form-control" placeholder="e.g. 500" min="0">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Business Location (City / District)</label>
+          <input type="text" id="bizLocation" class="form-control" placeholder="e.g. Colombo 03, Sri Lanka">
+        </div>
+
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:16px;margin-bottom:8px;">
+          <p style="font-size:13px;color:#1e40af;font-weight:600;margin-bottom:4px;">🤖 AI will generate for you:</p>
+          <p style="font-size:13px;color:#1e40af;opacity:.85;">Target audience, content strategy, engagement predictions, posting schedule, SWOT analysis, action plan, and budget recommendations — all tailored for your business.</p>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn btn-ghost" onclick="goToStep(2)">← Back</button>
+          <button class="btn btn-primary btn-lg" id="generateBtn" onclick="submitForm()">
+            🤖 Generate AI Report
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Generating overlay -->
+<div class="generating-overlay hidden" id="genOverlay">
+  <div class="generating-box">
+    <div class="ai-spinner"></div>
+    <h3>Generating Your Report…</h3>
+    <p id="genStatus">Analysing your business with Google Gemini AI…</p>
+    <p style="font-size:12px;color:#9ca3af;margin-top:12px;">This may take 10–20 seconds</p>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/input.js"></script>
+</body>
+</html>
